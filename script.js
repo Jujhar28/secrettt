@@ -5,11 +5,11 @@
 const LETTER_CONTENT = `I love the fact you made it till here,
 
 First of all, I made this because I wanted to make this day special for you,
-koi nahi toh mai hi sahi ehehe, chaahe kara maine kuch bhi nahi hai but firr bhi😭. So now I just wanted to say you’re officially stuck with me.
+koi nahi toh mai hi sahi ehehe, chaahe kara maine kuch bhi nahi hai but firr bhi😭. So now I just wanted to say ki aap fass gye.
 I’ll annoy you, support you, reels bhejunga mastt and steal your time just like I said.
 But mostly, I’ll always be here for you. You can count on me.
 Promise.
-And thank youuuuu for always being there for me, am so luckyyyy and blessed to have you in my life.
+And thank youuuuu for always being there for me, am so luckyyyy and blessed to have you in my life🧿. I hope we meet this June hope kya milunga penchooo.
 (btw speaker pe click karke dekho)
 
 Glittery Pen✨`;
@@ -17,7 +17,7 @@ Glittery Pen✨`;
 // ---------- Easy to edit: Temporary text when user clicks NO (up to 3 messages) ----------
 const NO_CLICK_MESSAGES = [
   'Yaar why yawr :(',
-  'Firse No maine ro dena hai',
+  'Firse no maine ro dena hai',
   'You cant escape tho hehee',
 ];
 
@@ -383,3 +383,4 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
