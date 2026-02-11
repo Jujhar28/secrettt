@@ -821,17 +821,44 @@ body {
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 900px) {
+  .main-wrapper {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Show collages on mobile: smaller, stacked above/below center */
   .collage {
-    display: none;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .collage-img {
+    width: 72px;
   }
 
   .center-section {
     flex: 1 1 auto;
     max-width: 100%;
+    order: 2;
+  }
+
+  .collage-left {
+    order: 1;
+  }
+
+  .collage-right {
+    order: 3;
   }
 }
 
 @media (max-width: 480px) {
+  .collage-img {
+    width: 56px;
+  }
+
   .modal-content {
     padding: 1.5rem 1.25rem;
   }
