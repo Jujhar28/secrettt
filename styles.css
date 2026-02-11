@@ -293,6 +293,7 @@ body {
   transform: translateX(30px);
   pointer-events: none;
   transition: opacity var(--transition), transform var(--transition);
+  overflow: hidden;
 }
 
 .game-card.active {
@@ -399,6 +400,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   min-height: 44px;
+  max-width: 100%;
 }
 
 /* Temporary text above buttons (does not block clicks) */
@@ -458,9 +460,9 @@ body {
 .yes-btn.yes-grow-3 { transform: scale(1.65); }
 
 .promise-buttons.yes-only .yes-btn {
-  transform: scale(1.85);
-  padding: 0.75rem 2rem;
-  font-size: 1.15rem;
+  transform: scale(1.65);
+  padding: 0.7rem 1.6rem;
+  font-size: 1.1rem;
 }
 
 /* ========== GIFTS SECTION (after YES) ========== */
@@ -783,10 +785,11 @@ body {
   transform: translateX(-50%);
   font-size: 0.85rem;
   color: var(--text-dark);
-  opacity: 0.75;
+  opacity: 0.9;
   text-align: center;
-  padding: 0 1rem;
-  max-width: 90%;
+  padding: 0.35rem 1rem;
+  max-width: 92%;
+  z-index: 50;
 }
 
 .close-gift-btn {
@@ -823,26 +826,50 @@ body {
 @media (max-width: 900px) {
   .main-wrapper {
     flex-direction: column;
-    gap: 0.75rem;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 0.5rem;
+    padding: 1.25rem 0.4rem 4rem;
   }
 
   /* Show collages on mobile: smaller, stacked above/below center */
   .collage {
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .collage-img {
-    width: 72px;
+    width: 64px;
   }
 
   .center-section {
     flex: 1 1 auto;
     max-width: 100%;
+    width: 100%;
     order: 2;
+    z-index: 2;
+    margin: 0;
+    padding: 0.5rem 0.25rem 2rem;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .game-container {
+    min-height: 220px;
+  }
+
+  .game-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .question-text {
+    margin-bottom: 0.85rem;
   }
 
   .collage-left {
@@ -855,8 +882,19 @@ body {
 }
 
 @media (max-width: 480px) {
+  .main-wrapper {
+    padding: 1rem 0.35rem 4.25rem;
+  }
+
   .collage-img {
-    width: 56px;
+    width: 52px;
+  }
+
+  .bottom-note {
+    bottom: max(14px, env(safe-area-inset-bottom, 14px));
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    z-index: 100;
   }
 
   .modal-content {
@@ -867,17 +905,32 @@ body {
     font-size: 1rem;
   }
 
+  .center-section {
+    padding: 0.4rem 0.2rem 1.5rem;
+    width: 100%;
+  }
+
+  .game-container {
+    min-height: 200px;
+  }
+
   .game-card {
-    padding: 1.25rem;
+    padding: 1rem 0.85rem;
   }
 
   .question-text {
     font-size: 1rem;
+    margin-bottom: 1rem;
   }
 
   .card-btn {
     font-size: 0.9rem;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
+    min-height: 44px;
+  }
+
+  .promise-buttons {
+    margin-top: 0.25rem;
   }
 
   .gift-card {
@@ -895,7 +948,28 @@ body {
     height: 60px;
   }
 
+  /* Letter (Gift 3): whole screen scrolls so letter + Close button are visible */
+  .gift-screen#gift-screen-3 {
+    align-items: flex-start;
+    padding: 1rem 0.5rem 5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gift-screen#gift-screen-3 .gift-screen-content {
+    flex: 0 1 auto;
+    margin-bottom: 2rem;
+  }
+
+  .gift-screen#gift-screen-3 .letter-paper {
+    min-height: 100px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
   .letter-text {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+    word-wrap: break-word;
   }
 }
