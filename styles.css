@@ -1,0 +1,874 @@
+/* ========== PROMISE DAY – Cute, playful, minimal ========== */
+/* Fonts: Nunito (UI), Caveat (letter) – loaded in HTML */
+
+:root {
+  --pastel-pink: #ffd6e0;
+  --pastel-rose: #ffb3c6;
+  --pastel-lavender: #e8d5f2;
+  --pastel-peach: #ffecd2;
+  --pastel-mint: #d4f1e8;
+  --soft-white: #fff9fc;
+  --text-dark: #5c4a52;
+  --shadow-soft: 0 8px 32px rgba(92, 74, 82, 0.12);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --transition: 0.35s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, var(--pastel-pink) 0%, var(--pastel-lavender) 50%, var(--pastel-peach) 100%);
+  min-height: 100vh;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- Background effects: soft gradient + floating hearts/sparkles ---------- */
+.bg-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 214, 224, 0.4) 0%,
+    rgba(232, 213, 242, 0.3) 40%,
+    rgba(255, 236, 210, 0.4) 100%
+  );
+  animation: bgGradientPulse 12s ease-in-out infinite;
+}
+
+@keyframes bgGradientPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.bg-floats {
+  position: absolute;
+  inset: 0;
+}
+
+.bg-float {
+  position: absolute;
+  font-size: 1rem;
+  color: var(--pastel-rose);
+  opacity: 0.18;
+  animation: bgFloat 14s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -1.6s);
+}
+
+.bg-float:nth-child(odd) { color: var(--pastel-lavender); }
+.bg-float:nth-child(3n) { color: var(--pastel-peach); }
+
+/* Scatter positions so it feels minimal, not grid-like */
+.bg-float:nth-child(1) { left: 12%; top: 18%; }
+.bg-float:nth-child(2) { left: 88%; top: 25%; }
+.bg-float:nth-child(3) { left: 75%; top: 70%; }
+.bg-float:nth-child(4) { left: 8%; top: 65%; }
+.bg-float:nth-child(5) { left: 50%; top: 12%; }
+.bg-float:nth-child(6) { left: 92%; top: 55%; }
+.bg-float:nth-child(7) { left: 25%; top: 82%; }
+.bg-float:nth-child(8) { left: 60%; top: 88%; }
+
+@keyframes bgFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.18;
+  }
+  25% {
+    transform: translate(6px, -8px) scale(1.05);
+    opacity: 0.22;
+  }
+  50% {
+    transform: translate(-4px, 4px) scale(0.95);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translate(4px, 6px) scale(1.02);
+    opacity: 0.2;
+  }
+}
+
+.main-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* ========== 1. DISCLAIMER MODAL ========== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(92, 74, 82, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity var(--transition);
+}
+
+.modal-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Intro screen (after disclaimer, before main) ---------- */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(255, 249, 252, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  transition: opacity 0.4s ease;
+}
+
+.intro-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-content {
+  text-align: center;
+  max-width: 360px;
+  animation: modalPop 0.4s ease;
+}
+
+.intro-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.intro-btn {
+  margin: 0 auto;
+}
+
+.modal-content {
+  background: var(--soft-white);
+  padding: 2rem 2.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  max-width: 90%;
+  animation: modalPop 0.4s ease;
+}
+
+@keyframes modalPop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-text {
+  font-size: 1.2rem;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+}
+
+.modal-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--pastel-rose), var(--pastel-pink));
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.modal-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(255, 179, 198, 0.5);
+}
+
+/* ========== MAIN LAYOUT ========== */
+/* Left & right collages */
+.collage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.collage-img {
+  width: 140px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transform: rotate(var(--rotation, 0deg));
+  animation: float 4s ease-in-out infinite;
+}
+
+.collage-left .img-1 { animation-delay: 0s; }
+.collage-left .img-2 { animation-delay: 0.5s; }
+.collage-left .img-3 { animation-delay: 1s; }
+.collage-left .img-4 { animation-delay: 1.5s; }
+.collage-right .img-1 { animation-delay: 0.3s; }
+.collage-right .img-2 { animation-delay: 0.8s; }
+.collage-right .img-3 { animation-delay: 1.3s; }
+.collage-right .img-4 { animation-delay: 1.8s; }
+
+@keyframes float {
+  0%, 100% { transform: rotate(var(--rotation, 0deg)) translateY(0); }
+  50% { transform: rotate(var(--rotation, 0deg)) translateY(-8px); }
+}
+
+.collage-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Center section */
+.center-section {
+  flex: 0 1 420px;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== MINI GAME ========== */
+.game-container {
+  width: 100%;
+  position: relative;
+  min-height: 280px;
+}
+
+.progress-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+}
+
+.game-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: var(--soft-white);
+  padding: 1.75rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  transform: translateX(30px);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.game-card.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.game-card.slide-out {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/* ---------- Celebration confetti (pastel, 1–2s, non-blocking) ---------- */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 400;
+}
+
+.confetti-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  animation: confetti-burst 1.5s ease-out forwards;
+}
+
+@keyframes confetti-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: var(--confetti-end) rotate(var(--confetti-rotate)) scale(0.5);
+  }
+}
+
+.question-text {
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--pastel-rose);
+  border-radius: var(--radius-sm);
+  background: var(--soft-white);
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.card-btn:hover {
+  background: var(--pastel-pink);
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(255, 179, 198, 0.3);
+}
+
+/* Transition text before promise */
+.transition-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-dark);
+  opacity: 0.9;
+  padding: 2rem 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.transition-text.active {
+  opacity: 1;
+}
+
+/* Promise card – NO shrinks / YES grows over 3 clicks */
+.promise-card .promise-question {
+  font-size: 1.25rem;
+}
+
+.promise-buttons {
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 44px;
+}
+
+/* Temporary text above buttons (does not block clicks) */
+.promise-temp-text {
+  width: 100%;
+  margin-bottom: 1rem;
+  min-height: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Extra space when YES is large (after 3rd NO click) so text stays above button */
+.promise-card:has(.promise-buttons.yes-only) .promise-temp-text {
+  margin-bottom: 2rem;
+}
+
+.promise-temp-text.visible {
+  opacity: 1;
+}
+
+.promise-temp-text.fade-out {
+  opacity: 0;
+}
+
+.yes-btn {
+  background: linear-gradient(135deg, var(--pastel-rose), var(--pastel-pink));
+  border-color: var(--pastel-rose);
+  transition: transform 0.35s ease;
+}
+
+.no-btn {
+  transition: transform 0.35s ease;
+}
+
+/* Click 1: NO smaller, YES slightly bigger */
+.no-btn.no-shrink-1 { transform: scale(0.9); }
+.yes-btn.yes-grow-1 { transform: scale(1.1); }
+
+/* Click 2: NO even smaller, YES bigger */
+.no-btn.no-shrink-2 { transform: scale(0.55); }
+.yes-btn.yes-grow-2 { transform: scale(1.3); }
+
+/* Click 3: NO gone, YES large and centered */
+.no-btn.no-shrink-3 {
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  overflow: hidden;
+}
+.yes-btn.yes-grow-3 { transform: scale(1.65); }
+
+.promise-buttons.yes-only .yes-btn {
+  transform: scale(1.85);
+  padding: 0.75rem 2rem;
+  font-size: 1.15rem;
+}
+
+/* ========== GIFTS SECTION (after YES) ========== */
+.gifts-section {
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+/* YES celebration: brief message before gifts (edit text in index.html) */
+.yes-celebration {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  animation: yesCelebrationIn 0.5s ease;
+}
+
+.yes-celebration.hidden {
+  display: none;
+}
+
+.yes-celebration-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  margin: 0;
+}
+
+@keyframes yesCelebrationIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gifts-section.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.gifts-title {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+.gift-cards {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Gift cards: look like real cards, hover tilt, flip/zoom on click */
+.gift-card {
+  width: 120px;
+  height: 160px;
+  perspective: 600px;
+  cursor: pointer;
+}
+
+.gift-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.gift-card:hover .gift-card-inner {
+  transform: rotateY(8deg) rotateX(5deg) scale(1.05);
+}
+
+.gift-card.flipped .gift-card-inner {
+  transform: rotateY(180deg) scale(1.08);
+}
+
+.gift-card-front,
+.gift-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.gift-card-front {
+  background: linear-gradient(145deg, var(--pastel-pink), var(--pastel-lavender));
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.gift-card-back {
+  background: linear-gradient(145deg, var(--pastel-rose), var(--pastel-peach));
+  transform: rotateY(180deg);
+}
+
+/* ========== GIFT SCREENS (overlays) ========== */
+.gift-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(92, 74, 82, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  padding: 1rem;
+  animation: overlayIn 0.3s ease;
+}
+
+.gift-screen.hidden {
+  display: none;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.gift-screen-content {
+  background: var(--soft-white);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: modalPop 0.4s ease;
+}
+
+.gift-screen-content h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+/* Gift 1: Chocolates */
+.chocolate-images {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.chocolate-images img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.gift-1-line {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+/* Gift 2: Bouquet */
+.bouquet-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.gift-2-line {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Gift 3: Letter */
+.letter-screen {
+  background: rgba(92, 74, 82, 0.5);
+}
+
+.letter-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://picsum.photos/800/600?random=romantic') center/cover;
+  filter: blur(12px);
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.hearts-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.6;
+  animation: heartFloat 4s ease-in-out infinite;
+}
+
+@keyframes heartFloat {
+  0%, 100% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.letter-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Speaker button: play Vaada.mp3 at low volume (edit path in script.js if needed) */
+.letter-audio-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 179, 198, 0.4);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.letter-audio-btn:hover {
+  background: rgba(255, 179, 198, 0.7);
+  transform: scale(1.08);
+}
+
+.letter-paper {
+  background: rgba(255, 249, 252, 0.95);
+  padding: 1.5rem;
+  border-radius: var(--radius-sm);
+  min-height: 180px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+
+.letter-text {
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+  white-space: pre-wrap;
+}
+
+.letter-text .cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--pastel-rose);
+  animation: blink 0.8s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.made-for-you {
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.letter-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Bottom note (edit text in index.html) */
+.bottom-note {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  opacity: 0.75;
+  text-align: center;
+  padding: 0 1rem;
+  max-width: 90%;
+}
+
+.close-gift-btn {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--pastel-rose);
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.close-gift-btn:hover {
+  background: var(--pastel-pink);
+  transform: scale(1.05);
+}
+
+/* ========== GAME CONTAINER FADE OUT ========== */
+.game-container.fade-out {
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.game-container.hidden {
+  display: none !important;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .collage {
+    display: none;
+  }
+
+  .center-section {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .modal-text {
+    font-size: 1rem;
+  }
+
+  .game-card {
+    padding: 1.25rem;
+  }
+
+  .question-text {
+    font-size: 1rem;
+  }
+
+  .card-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .gift-card {
+    width: 100px;
+    height: 140px;
+  }
+
+  .gift-card-front,
+  .gift-card-back {
+    font-size: 1rem;
+  }
+
+  .chocolate-images img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .letter-text {
+    font-size: 1.2rem;
+  }
+}

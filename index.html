@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise Day 💕</title>
+  <!-- Cute handwritten font for letter; clean font for UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Soft background: gradient + subtle floating hearts (minimal, pastel) -->
+  <div class="bg-effects" aria-hidden="true">
+    <div class="bg-gradient"></div>
+    <div class="bg-floats">
+      <span class="bg-float" style="--i: 0;">♥</span>
+      <span class="bg-float" style="--i: 1;">♥</span>
+      <span class="bg-float" style="--i: 2;">✦</span>
+      <span class="bg-float" style="--i: 3;">♥</span>
+      <span class="bg-float" style="--i: 4;">✦</span>
+      <span class="bg-float" style="--i: 5;">♥</span>
+      <span class="bg-float" style="--i: 6;">✦</span>
+      <span class="bg-float" style="--i: 7;">♥</span>
+    </div>
+  </div>
+
+  <!-- ========== 1. DISCLAIMER MODAL ========== -->
+  <!-- Shown on load; user must click button to continue -->
+  <div id="disclaimer-modal" class="modal-overlay">
+    <div class="modal-content">
+      <p class="modal-text">⚠️ After this, merko good morning essay matt bhej dena😭</p>
+      <button id="disclaimer-btn" class="modal-btn">Okay I won't 😌</button>
+    </div>
+  </div>
+
+  <!-- ========== 2. INTRO (after disclaimer – edit text below) ========== -->
+  <div id="intro-overlay" class="intro-overlay hidden">
+    <div class="intro-content">
+      <p class="intro-text">I made a little something for you, hai bekar hi but....</p>
+      <button id="intro-btn" class="modal-btn intro-btn">Chalooo</button>
+    </div>
+  </div>
+
+  <!-- ========== MAIN LAYOUT (questions + images) ========== -->
+  <main class="main-wrapper">
+    <!-- Left collage: 3–4 images (replace src with your images) -->
+    <aside class="collage collage-left">
+      <div class="collage-img img-1" style="--rotation: -4deg;"><img src="img1.jpeg" alt="Placeholder 1"></div>
+      <div class="collage-img img-2" style="--rotation: 3deg;"><img src="img2.jpeg" alt="Placeholder 2"></div>
+      <div class="collage-img img-3" style="--rotation: -2deg;"><img src="img3.jpeg" alt="Placeholder 3"></div>
+      <div class="collage-img img-4" style="--rotation: 5deg;"><img src="img4.jpeg" alt="Placeholder 4"></div>
+    </aside>
+
+    <!-- Center: mini game + gifts -->
+    <section class="center-section">
+      <!-- ========== MINI GAME (Questions 1–3 + Promise) ========== -->
+      <div id="game-container" class="game-container">
+        <!-- Progress: "Question 1 of 3" (updated by JS) -->
+        <p id="progress-text" class="progress-text">Question 1 of 3</p>
+
+        <!-- Question cards (one visible at a time) -->
+        <div id="card-1" class="game-card active">
+          <p class="question-text">Who gets a little happy when your name pops up?</p>
+          <div class="card-buttons">
+            <button class="card-btn" data-answer="1a">Me</button>
+            <button class="card-btn" data-answer="1b">Obviously me</button>
+          </div>
+        </div>
+        <div id="card-2" class="game-card">
+          <p class="question-text">Who secretly wants to steal your time every day?</p>
+          <div class="card-buttons">
+            <button class="card-btn" data-answer="2a">Me</button>
+            <button class="card-btn" data-answer="2b">Don't expose me like that</button>
+          </div>
+        </div>
+        <div id="card-3" class="game-card">
+          <p class="question-text">Who would choose you over sleep?</p>
+          <div class="card-buttons">
+            <button class="card-btn" data-answer="3a">Me</button>
+            <button class="card-btn" data-answer="3b">100% me</button>
+          </div>
+        </div>
+
+        <!-- Transition text before promise question -->
+        <div id="transition-text" class="transition-text">
+          Okay jokes aside… just one last thing.
+        </div>
+
+        <!-- Final promise question: YES / NO (NO shrinks over 3 clicks) -->
+        <div id="promise-card" class="game-card promise-card">
+          <p class="question-text promise-question">Do you promise you'll stay?
+            (Try clicking No)</p>
+          <!-- Temporary text above buttons (edit messages in script.js NO_CLICK_MESSAGES) -->
+          <p id="promise-temp-text" class="promise-temp-text" aria-live="polite"></p>
+          <div class="card-buttons promise-buttons" id="promise-buttons">
+            <button id="yes-btn" class="card-btn yes-btn">YES</button>
+            <button id="no-btn" class="card-btn no-btn">NO</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- YES celebration: shows for ~1.5s before gifts (edit text below if you want) -->
+      <div id="yes-celebration" class="yes-celebration hidden">
+        <p class="yes-celebration-text">You said yes! WOWWWWW</p>
+      </div>
+
+      <!-- ========== GIFTS SECTION (shown after YES) ========== -->
+      <div id="gifts-section" class="gifts-section hidden">
+        <h2 class="gifts-title">For saying a yes 🎁</h2>
+        <div class="gift-cards">
+          <div class="gift-card" data-gift="1">
+            <div class="gift-card-inner">
+              <div class="gift-card-front">Gift 1</div>
+              <div class="gift-card-back">Gift 1</div>
+            </div>
+          </div>
+          <div class="gift-card" data-gift="2">
+            <div class="gift-card-inner">
+              <div class="gift-card-front">Gift 2</div>
+              <div class="gift-card-back">Gift 2</div>
+            </div>
+          </div>
+          <div class="gift-card" data-gift="3">
+            <div class="gift-card-inner">
+              <div class="gift-card-front">Gift 3</div>
+              <div class="gift-card-back">Gift 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right collage: 3–4 images -->
+    <aside class="collage collage-right">
+      <div class="collage-img img-1" style="--rotation: 3deg;"><img src="img5.jpeg" alt="Placeholder 5"></div>
+      <div class="collage-img img-2" style="--rotation: -4deg;"><img src="img6.jpeg" alt="Placeholder 6"></div>
+      <div class="collage-img img-3" style="--rotation: 2deg;"><img src="img7.jpeg" alt="Placeholder 7"></div>
+      <div class="collage-img img-4" style="--rotation: -3deg;"><img src="img8.jpeg" alt="Placeholder 8"></div>
+    </aside>
+  </main>
+
+  <!-- ========== GIFT SCREENS (overlays) ========== -->
+  <!-- Gift 1: Chocolates -->
+  <div id="gift-screen-1" class="gift-screen overlay hidden">
+    <div class="gift-screen-content">
+      <h3>Love the mitha?</h3>
+      <div class="chocolate-images">
+        <img src="javachip.jpg" alt="Chocolate 1">
+        <img src="dairy.jpg" alt="Chocolate 2">
+        <img src="khoya.jpg" alt="Chocolate 3">
+      </div>
+      <!-- Easy to edit line below -->
+      <p class="gift-1-line">Because you're already sweet enough.</p>
+      <button class="close-gift-btn" data-close="1">Close</button>
+    </div>
+  </div>
+
+  <!-- Gift 2: Bouquet -->
+  <div id="gift-screen-2" class="gift-screen overlay hidden">
+    <div class="gift-screen-content">
+      <h3>Bouquet</h3>
+      <img class="bouquet-img" src="rose.jpg" alt="Roses and lilies">
+      <!-- Main text, bigger, centered -->
+      <p class="gift-2-line">u love both of these righttt?</p>
+      <button class="close-gift-btn" data-close="2">Close</button>
+    </div>
+  </div>
+
+  <!-- Gift 3: Letter (typewriter + hearts) -->
+  <div id="gift-screen-3" class="gift-screen overlay hidden letter-screen">
+    <div class="letter-bg"></div>
+    <div class="hearts-container" id="hearts-container"></div>
+    <div class="gift-screen-content letter-content">
+      <!-- Click to play Vaada.mp3 at low volume -->
+      <button id="letter-audio-btn" class="letter-audio-btn" type="button" aria-label="Play music" title="Play music">🔊</button>
+      <div class="letter-paper">
+        <p id="letter-text" class="letter-text"></p>
+        <!-- Edit letter content in script.js (LETTER_CONTENT) -->
+      </div>
+      <p class="made-for-you">Made just for you.</p>
+      <div class="letter-actions">
+        <button id="replay-letter-btn" class="close-gift-btn">Replay</button>
+        <button class="close-gift-btn" data-close="3">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom note -->
+  <p class="bottom-note">sorry for using the stickers but mere paas koi photos nahi thi 😭</p>
+
+  <script src="script.js"></script>
+</body>
+</html>
